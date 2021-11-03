@@ -44,6 +44,15 @@ public class Hello implements RequestHandler<HashMap<String, Object>, HashMap<St
                 
         //Collect final information such as total runtime and cpu deltas.
         inspector.inspectAllDeltas();
+// Sleep for 10 seconds
+try
+{
+Thread.sleep(10000);
+}
+catch (InterruptedException ie)
+{
+System.out.println("Interruption occurred while sleeping...");
+}
         return inspector.finish();
     }
 }

@@ -47,6 +47,15 @@ public class HelloMain implements RequestHandler<HashMap<String, Object>, HashMa
                 
         //Collect final information such as total runtime and cpu deltas.
         inspector.inspectAllDeltas();
+// Sleep for 10 seconds
+try
+{
+Thread.sleep(10000);
+}
+catch (InterruptedException ie)
+{
+System.out.println("Interruption occurred while sleeping...");
+}
         return inspector.finish();
     }
     
