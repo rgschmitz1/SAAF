@@ -22,6 +22,12 @@ public class Hello implements RequestHandler<HashMap<String, Object>, HashMap<St
      * @return HashMap that Lambda will automatically convert into JSON.
      */
     public HashMap<String, Object> handleRequest(HashMap<String, Object> request, Context context) {
+        // Sleep for 10 seconds
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException ie) {
+            System.out.println("Interruption occurred while sleeping...");
+        }
         
         //Collect initial data.
         Inspector inspector = new Inspector();
@@ -44,15 +50,6 @@ public class Hello implements RequestHandler<HashMap<String, Object>, HashMap<St
                 
         //Collect final information such as total runtime and cpu deltas.
         inspector.inspectAllDeltas();
-// Sleep for 10 seconds
-try
-{
-Thread.sleep(10000);
-}
-catch (InterruptedException ie)
-{
-System.out.println("Interruption occurred while sleeping...");
-}
         return inspector.finish();
     }
 }
