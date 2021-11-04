@@ -35,11 +35,11 @@ public class Decode implements RequestHandler<HashMap<String, Object>, HashMap<S
 			if (ch >= 'a' && ch <= 'z') {
 				ch = (char)(ch - key);
 				if (ch < 'a')
-					ch = (char)(ch + 'z' - 'a' + 1);
+					ch = (char)(ch + 26);
 			} else if(ch >= 'A' && ch <= 'Z') {
 				ch = (char)(ch - key);
 				if (ch < 'A')
-					ch = (char)(ch + 'Z' - 'A' + 1);
+					ch = (char)(ch + 26);
 			}
 			decryptedMessage.append(ch);
 		}

@@ -39,11 +39,11 @@ public class DecodeMain implements RequestHandler<HashMap<String, Object>, HashM
 			if (ch >= 'a' && ch <= 'z') {
 				ch = (char)(ch - key);
 				if (ch < 'a')
-					ch = (char)(ch + 'z' - 'a' + 1);
+					ch = (char)(ch + 26);
 			} else if(ch >= 'A' && ch <= 'Z') {
 				ch = (char)(ch - key);
 				if (ch < 'A')
-					ch = (char)(ch + 'Z' - 'A' + 1);
+					ch = (char)(ch + 26);
 			}
 			decryptedMessage.append(ch);
 		}
@@ -52,10 +52,10 @@ public class DecodeMain implements RequestHandler<HashMap<String, Object>, HashM
 		inspector.addAttribute("msg", decryptedMessage.toString());
 
 		//Create and populate a separate response object for function output. (OPTIONAL)
-		Response response = new Response();
-		response.setValue(decryptedMessage.toString());
+		//Response response = new Response();
+		//response.setValue(decryptedMessage.toString());
 
-		inspector.consumeResponse(response);
+		//inspector.consumeResponse(response);
 		//****************END FUNCTION IMPLEMENTATION***************************
 
 		//Collect final information such as total runtime and cpu deltas.
