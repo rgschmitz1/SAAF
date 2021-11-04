@@ -32,37 +32,30 @@ public class EncodeMain implements RequestHandler<HashMap<String, Object>, HashM
 
 		//****************START FUNCTION IMPLEMENTATION*************************
 		String message=(String) request.get("msg");
-		String encryptedMessage = "";
-		int key=Integer.parseInt((String) request.get("shift"));
-		char ch;
+		StringBuilder encryptedMessage = new StringBuilder();
+		int key=(Integer) request.get("shift") % 26;
 
-		for(int i = 0; i < message.length(); ++i){
-			ch = message.charAt(i);
-			if(ch >= 'a' && ch <= 'z'){
+		for (char ch : message.toCharArray()) {
+			if (ch >= 'a' && ch <= 'z') {
 				ch = (char)(ch + key);
-				if(ch > 'z'){
+				if (ch > 'z')
 					ch = (char)(ch - 'z' + 'a' - 1);
-				}
-			}
-			else if(ch >= 'A' && ch <= 'Z'){
+			} else if (ch >= 'A' && ch <= 'Z') {
 				ch = (char)(ch + key);
-				if(ch > 'Z'){
+				if (ch > 'Z')
 					ch = (char)(ch - 'Z' + 'A' - 1);
-				}
 			}
-			encryptedMessage += ch;
+			encryptedMessage.append(ch);
 		}
 
 		//Add custom key/value attribute to SAAF's output. (OPTIONAL)
-		inspector.addAttribute("msg", encryptedMessage);
-//		inspector.addAttribute("shift", request.get("shift"));
+		inspector.addAttribute("msg", encryptedMessage.toString());
 
 		//Create and populate a separate response object for function output. (OPTIONAL)
 		Response response = new Response();
-		response.setValue(encryptedMessage);
+		response.setValue(encryptedMessage.toString());
 
 		inspector.consumeResponse(response);
-
 		//****************END FUNCTION IMPLEMENTATION***************************
 
 		//Collect final information such as total runtime and cpu deltas.
@@ -70,8 +63,7 @@ public class EncodeMain implements RequestHandler<HashMap<String, Object>, HashM
 		return inspector.finish();
 	}
 
-	public static void main (String[] args)
-	{
+	public static void main (String[] args) {
 		Context c = new Context() {
 			@Override
 			public String getAwsRequestId() {
@@ -141,7 +133,7 @@ public class EncodeMain implements RequestHandler<HashMap<String, Object>, HashM
 
 		// Grab the args from the command line
 		String msg = (args.length > 0 ? args[0] : "");
-		String shift = (args.length > 0 ? args[1] : "");
+		Integer shift = Integer.parseInt(args.length > 0 ? args[1] : "");
 
 		// Load the msg into the request hashmap
 		req.put("msg", msg);
@@ -156,6 +148,5 @@ public class EncodeMain implements RequestHandler<HashMap<String, Object>, HashM
 
 		// Print out function result
 		System.out.println("function result:" + resp.toString());
-
 	}
 }

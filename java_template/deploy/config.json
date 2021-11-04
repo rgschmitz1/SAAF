@@ -1,9 +1,9 @@
 {
 	"README": "See ./deploy/README.md for help!",
 
-	"functionName":     "encode",
+	"functionName":     "hello",
 
-	"lambdaHandler": "lambda.Encode::handleRequest",
+	"lambdaHandler": "lambda.Hello::handleRequest",
 	"lambdaRoleARN": "arn:aws:iam::574778148684:role/service-role/hello-role-20buthql",
 	"lambdaSubnets": "",
 	"lambdaSecurityGroups": "",

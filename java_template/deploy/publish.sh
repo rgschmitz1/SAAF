@@ -62,8 +62,8 @@ if [[ ! -z $1 && $1 -eq 1 ]]; then
 	# Submit jar to AWS Lambda.
 	cd ..
 	cd target
-	aws lambda create-function --function-name $function --runtime $lambdaRuntime --role $lambdaRole --timeout 900 --handler $lambdaHandler --zip-file fileb://lambda_test-1.0-SNAPSHOT.jar
-	aws lambda update-function-code --function-name $function --zip-file fileb://lambda_test-1.0-SNAPSHOT.jar
+	aws lambda create-function --function-name $function --runtime $lambdaRuntime --role $lambdaRole --timeout 900 --handler $lambdaHandler --zip-file fileb://caesarcipher-1.0-SNAPSHOT.jar
+	aws lambda update-function-code --function-name $function --zip-file fileb://caesarcipher-1.0-SNAPSHOT.jar
 	aws lambda update-function-configuration --function-name $function --memory-size $memory --runtime $lambdaRuntime \
 		--vpc-config SubnetIds=[$lambdaSubnets],SecurityGroupIds=[$lambdaSecurityGroups] --environment "$lambdaEnvironment"
 	cd ..
@@ -91,7 +91,7 @@ if [[ ! -z $3 && $3 -eq 1 ]]; then
 	# Submit jar to AWS Lambda.
 	cd ..
 	cd target
-	ibmcloud fn action update $function --kind java --memory $memory --main $ibmHandler lambda_test-1.0-SNAPSHOT.jar
+	ibmcloud fn action update $function --kind java --memory $memory --main $ibmHandler caesarcipher-1.0-SNAPSHOT.jar
 	cd ..
 	cd deploy
 

@@ -7,10 +7,9 @@ import saaf.Response;
 import java.util.HashMap;
 
 /**
- * uwt.lambda_test::handleRequest
+ * uwt.caesarcipher::handleRequest
  *
- * @author Wes Lloyd
- * @author Robert Cordingly
+ * @author Bob Schmitz
  */
 public class Decode implements RequestHandler<HashMap<String, Object>, HashMap<String, Object>> {
 
@@ -29,36 +28,30 @@ public class Decode implements RequestHandler<HashMap<String, Object>, HashMap<S
 
 		//****************START FUNCTION IMPLEMENTATION*************************
 		String message=(String) request.get("msg");
-		String decryptedMessage = "";
-		int key=Integer.parseInt((String) request.get("shift"));
-		char ch;
+		StringBuilder decryptedMessage = new StringBuilder();
+		int key=(Integer) request.get("shift") % 26;
 
-		for(int i = 0; i < message.length(); ++i){
-			ch = message.charAt(i);
-			if(ch >= 'a' && ch <= 'z'){
+		for (char ch : message.toCharArray()) {
+			if (ch >= 'a' && ch <= 'z') {
 				ch = (char)(ch - key);
-				if(ch < 'a'){
+				if (ch < 'a')
 					ch = (char)(ch + 'z' - 'a' + 1);
-				}
-			}
-			else if(ch >= 'A' && ch <= 'Z'){
+			} else if(ch >= 'A' && ch <= 'Z') {
 				ch = (char)(ch - key);
-				if(ch < 'A'){
+				if (ch < 'A')
 					ch = (char)(ch + 'Z' - 'A' + 1);
-				}
 			}
-			decryptedMessage += ch;
+			decryptedMessage.append(ch);
 		}
 
 		//Add custom key/value attribute to SAAF's output. (OPTIONAL)
-		inspector.addAttribute("msg", decryptedMessage);
+		inspector.addAttribute("msg", decryptedMessage.toString());
 
 		//Create and populate a separate response object for function output. (OPTIONAL)
-		Response response = new Response();
-		response.setValue(decryptedMessage);
+		//Response response = new Response();
+		//response.setValue(decryptedMessage.toString());
 
-		inspector.consumeResponse(response);
-
+		//inspector.consumeResponse(response);
 		//****************END FUNCTION IMPLEMENTATION***************************
 
 		//Collect final information such as total runtime and cpu deltas.
