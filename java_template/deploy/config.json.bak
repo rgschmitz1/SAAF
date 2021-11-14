@@ -1,10 +1,10 @@
 {
 	"README": "See ./deploy/README.md for help!",
 
-	"functionName":     "CreateCSV",
+	"functionName":     "helloWorld",
 
-	"lambdaHandler": "lambda.CreateCSV::handleRequest",
-	"lambdaRoleARN": "arn:aws:lambda:us-east-2:574778148684:function:CreateCSV",
+	"lambdaHandler": "lambda.Hello::handleRequest",
+	"lambdaRoleARN": "",
 	"lambdaSubnets": "",
 	"lambdaSecurityGroups": "",
 	"lambdaEnvironment": "Variables={EXAMPLEVAR1=VAL1,EXAMPLEVAR2=VAL2}",
